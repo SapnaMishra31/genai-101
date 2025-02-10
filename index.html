@@ -3,13 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Fun Facts Generator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Food Fun Fact Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: black;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: green;
+            animation: fadeIn 1s ease-in;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+            transform: scale(1.05);
+        }
+
+        #fact-display {
+            margin: 20px;
+            font-size: 18px;
+            color: black;
+            border: 1px solid green;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Fun Facts About Me!</h1>
-    <div id="fact-display">Click the button to see a fun fact!</div>
-    <button onclick="generateFact()">Generate Another Fun Fact</button>
-    <script src="script.js"></script>
+    <h1>Food Fun Fact Generator</h1>
+    <div id="fact-display">Click the button to see a food fun fact!</div>
+    <button id="generate-button">Generate Another Fact</button>
+
+    <script>
+        let facts = [
+            "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3000 years old and still edible.",
+            "Carrots were originally purple in color. The orange variety was cultivated by Dutch growers in the 17th century.",
+            "Bananas are berries, but strawberries are not. Botanically, a berry is a fruit produced from the ovary of a single flower.",
+            "Chocolate was once used as currency by the Aztecs. They valued cacao beans highly and used them for trade.",
+            "Pineapples take about two to three years to grow. They are a tropical fruit that requires a warm climate to thrive."
+        ];
+
+        document.getElementById('generate-button').addEventListener('click', generateFact);
+
+        function generateFact() {
+            if (facts.length > 0) {
+                const factDisplay = document.getElementById('fact-display');
+                const randomIndex = Math.floor(Math.random() * facts.length);
+                factDisplay.textContent = facts[randomIndex];
+
+                // Reset animation
+                factDisplay.style.animation = 'none'; // Remove the animation
+                factDisplay.offsetHeight; // Trigger reflow
+                factDisplay.style.animation = ''; // Reapply the animation
+            } else {
+                console.log('No facts available.');
+            }
+        }
+    </script>
 </body>
 </html>
